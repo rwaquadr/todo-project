@@ -1,6 +1,12 @@
 const express = require('express')  
 const app = express()  
 const port = 3000
+var bodyParser = require('body-parser')
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 app.listen(port, function(err) {  
   if (err) {
@@ -43,9 +49,12 @@ app.get('/get-allTodos', function(request, response){
 	console.log('this route is being hit');
 });
 
-app.post('/post-allTodos', function(request, response){
-	request.body(allTodos);
-	console.log('this works')
+app.post('/post-newTodos', function(request, response){
+	// console.log(request.body);
+	
+	var newTodo = request.body;
+	allTodos.push(newTodo);
+	console.log(allTodos);
 	//console log request.body (make sure you're gettign the args from postman)
 	//saving the object to your array of objects
 	//
