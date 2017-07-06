@@ -2,8 +2,27 @@ const express = require('express')
 const app = express()  
 const port = 3000
 var bodyParser = require('body-parser')
+var fs = require('fs');
+
+	var obj;
+	fs.readFile('data.json', 'utf8', function (err, data){
+		if(err){
+			throw err
+		}
+		for(var i = 0; i < allTodos.length; i++){
+			// var obj = JSON.stringify(data.json);
+
+			console.log(obj);
+		}
+
+		// allTodos = JSON.parse(obj);
+		// console.log(data);
+	});
+	// console.log(obj);
+	
 
 
+ 
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
@@ -43,25 +62,43 @@ var allTodos = [{
 },]
 
 
+ 	
+
 
 app.get('/get-allTodos', function(request, response){
-	response.send(allTodos);
-	console.log('this route is being hit');
+	response.send('helloooo');
+	console.log('this route is being hit',allTodos);
 });
 
 app.post('/post-newTodos', function(request, response){
-	// console.log(request.body);
+	
 	
 	var newTodo = request.body;
 	allTodos.push(newTodo);
 	console.log(allTodos);
-	//console log request.body (make sure you're gettign the args from postman)
-	//saving the object to your array of objects
-	//
- 
+
+});	
+
+ app.post('/post-edit', function(request, response){
+ 	
+ 	var requestData = request.body;
+ 	console.log(request.body);
+
+ 	for (var i=0; i<allTodos.length; i++){
+
+ 		console.log(allTodos[i].ID);
+ 		if(allTodos[i].ID==requestData.ID){
+ 			console.log('breaking into if statement');
+ 			allTodos[i].description = requestData.description;
+ 			console.log(allTodos[i]);
+ 			break;
+ 		}
+ 	}
+
+
+ });
 
 
 
-	//response.send(request.body);
+	// response.send(request.body);
 	// console.log('this route is being hit');
-});
