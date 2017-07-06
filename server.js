@@ -66,7 +66,7 @@ var allTodos = [{
 
 
 app.get('/get-allTodos', function(request, response){
-	response.send('helloooo');
+	response.send(allTodos);
 	console.log('this route is being hit',allTodos);
 });
 
